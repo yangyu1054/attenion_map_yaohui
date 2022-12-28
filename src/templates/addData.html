@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="main-container">
+    <div>
+      <a href="/" class="button is-text">&lt; return to main menu</a>
+    </div>
+    <h1 class="title">choose an image</h1>
+    <div>
+      <img src="{{url_for('static', filename='/img/upload/input.jpg')}}" align="middle" width="800" height="800" alt="'not uploaded"/>
+      
+    </div>
+    <div>
+        <input id="fileupload" type="file" class="button is-info" name="fileupload" />
+        <button id="upload-button" class="button is-success" onclick="uploadFile()"> Upload </button>
+        <button type="button" class="button is-success" onclick="addDataAction()">add data</button>
+    </div>
+
+  </div>
+
+
+  <script> 
+
+    async function uploadFile() {
+        console.log('test') 
+        let formData = new FormData();           
+        formData.append("file", fileupload.files[0]);
+        await fetch('/add-data', {
+        method: "POST", 
+        body: formData
+        });    
+        // alert('The file has been uploaded successfully.');
+        window.location.href = '/add-data'
+    }  
+
+    function addDataAction(){
+        window.location.href = '/';
+    }
+
+    // $(document).ready(function() {
+    // })
+  </script>
+
+{% endblock %}
